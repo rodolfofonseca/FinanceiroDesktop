@@ -1,15 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
+
+import controller.SistemaCtr;
+import controller.UsuarioCtr;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import model.Empresa;
+import model.Sistema;
+import model.Usuarios;
 
 /**
  *
  * @author RODOLFO
  */
 public class JFLogin extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFLogin.class.getName());
 
     /**
@@ -17,6 +23,9 @@ public class JFLogin extends javax.swing.JFrame {
      */
     public JFLogin() {
         initComponents();
+        setLocationRelativeTo(null);
+        ImageIcon icon = new ImageIcon("src/imagens/icon/icone_sistema.ico");
+        setIconImage(icon.getImage());
     }
 
     /**
@@ -33,10 +42,11 @@ public class JFLogin extends javax.swing.JFrame {
         tbxLogin = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         tbxSenha = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        btnLoginSistema = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Financeiro");
+        setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens_sistema/logo_empresa_preto_pequeno.jpg"))); // NOI18N
 
@@ -51,8 +61,9 @@ public class JFLogin extends javax.swing.JFrame {
 
         tbxSenha.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/button_icons/property_1018606 (2).png"))); // NOI18N
-        jButton1.setToolTipText("ENTRAR NO SISTEMA");
+        btnLoginSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/button_icons/login.png"))); // NOI18N
+        btnLoginSistema.setToolTipText("ENTRAR NO SISTEMA");
+        btnLoginSistema.addActionListener(this::btnLoginSistemaActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,20 +71,24 @@ public class JFLogin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tbxSenha))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(6, 6, 6)
-                            .addComponent(tbxLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(164, 164, 164)
-                .addComponent(jButton1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tbxLogin)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tbxSenha)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnLoginSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,12 +108,16 @@ public class JFLogin extends javax.swing.JFrame {
                         .addComponent(jLabel3))
                     .addComponent(tbxSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnLoginSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 52, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLoginSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginSistemaActionPerformed
+        LoginSistema();
+    }//GEN-LAST:event_btnLoginSistemaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,11 +145,61 @@ public class JFLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    public static javax.swing.JButton btnLoginSistema;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     public static javax.swing.JTextField tbxLogin;
     public static javax.swing.JPasswordField tbxSenha;
     // End of variables declaration//GEN-END:variables
+    private void LoginSistema() {
+        String email = tbxLogin.getText().trim();
+        String senha = new String(tbxSenha.getPassword()).trim();
+
+        boolean validacao = true;
+
+        if ("".equals(email)) {
+            JOptionPane.showMessageDialog(rootPane, "O campo email não pode ser vazio! Por favor informe um email!", "Falha no login", JOptionPane.ERROR_MESSAGE);
+            validacao = false;
+        }
+
+        if ("".equals(senha) && validacao == true) {
+            JOptionPane.showMessageDialog(rootPane, "O campo senha não pode ser vazio! Por favor informe uma senha!", "Falha no login", JOptionPane.ERROR_MESSAGE);
+            validacao = false;
+        }
+
+        if (validacao == true) {
+            UsuarioCtr controller = new UsuarioCtr();
+            boolean retorno = controller.LogarSistema(email, senha);
+
+            if (retorno == true) {
+                Map<String, Object> filtros = new HashMap<>();
+                Map<String, Object> codigoEmpresa = new HashMap<>();
+
+                Usuarios usuario = new Usuarios();
+                usuario = controller.getUsuario();
+
+                Empresa empresa = new Empresa();
+                empresa = usuario.getEmpresa();
+
+                SistemaCtr sistemaController = new SistemaCtr();
+                Sistema sistema = new Sistema();
+                sistema = sistemaController.getSistema(empresa);
+
+                if ("alfa 0.0".equals(sistema.getVersao_sistema_java())) {
+                    JFDashboard dashboard = new JFDashboard();
+                    dashboard.usuario = usuario;
+                    dashboard.empresa = usuario.getEmpresa();
+                    dashboard.setVisible(true);
+                    dashboard.iniciarSistema();
+
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Sistema desatualizado!\nPor favor atualize para a versão " + sistema.getVersao_sistema_java(), "ATUALIZAÇÃO NECESSÁRIA", JOptionPane.QUESTION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Usuário ou senha incorretos, por favor corrija e tente mais tarde!", "Falha no login", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 }

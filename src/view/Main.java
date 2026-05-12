@@ -6,10 +6,11 @@ package view;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import controller.UsuarioCtr;
 import java.util.HashMap;
 import java.util.Map;
 import org.bson.Document;
-import util.Model;
+import DAO.ModelDAO;
 import util.DB;
 
 /**
@@ -21,17 +22,19 @@ public class Main {
     public static void main(String[] args) {
 
         //Model.all("contas").forEach(System.out::println);
-        MongoDatabase db = DB.conectar();
-        MongoCollection<Document> clientes = db.getCollection("clientes");
+        //MongoDatabase db = DB.conectar();
+        //MongoCollection<Document> clientes = db.getCollection("clientes");
 
-        Map<String, Object> filtros = new HashMap<>();
+        //Map<String, Object> filtros = new HashMap<>();
 
         //Map<String, Object> nome = new HashMap<>();
         //nome.put("==", "Rodolfo");
 
         //filtros.put("nome", nome);
 
-        Model.find("clientes", filtros, null, null, 2)
-     .forEach(doc -> System.out.println(doc.toJson()));
+        //Model.find("clientes", filtros, null, null, 2)
+     //.forEach(doc -> System.out.println(doc.toJson()));
+        //UsuarioCtr controller = new UsuarioCtr();
+        //controller.LogarSistema("");
     }
 }

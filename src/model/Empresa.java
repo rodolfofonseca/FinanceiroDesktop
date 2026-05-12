@@ -1,6 +1,7 @@
 package model;
 import org.bson.types.ObjectId;
 import java.util.Date;
+import org.bson.BsonDateTime;
 /**
  * Objeto que contém todos os atributos da Empresa
  * @author RODOLFO
@@ -10,7 +11,7 @@ public class Empresa {
     private String nome_empresa;
     private String cnpj;
     private String endereco;
-    private Date data_cadastro;
+    private BsonDateTime data_cadastro;
     private String cidade;
 
     /**
@@ -72,14 +73,14 @@ public class Empresa {
     /**
      * @return the data_cadastro
      */
-    public Date getData_cadastro() {
+    public BsonDateTime getData_cadastro() {
         return data_cadastro;
     }
 
     /**
      * @param data_cadastro the data_cadastro to set
      */
-    public void setData_cadastro(Date data_cadastro) {
+    public void setData_cadastro(BsonDateTime data_cadastro) {
         this.data_cadastro = data_cadastro;
     }
 
