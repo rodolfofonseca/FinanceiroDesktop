@@ -1,31 +1,38 @@
 package model;
-import org.bson.types.ObjectId;
-import java.util.Date;
-import org.bson.BsonDateTime;
-/**
- * Objeto que contém todos os atributos da Empresa
- * @author RODOLFO
- */
-public class Empresa {
-    private ObjectId _id;
-    private String nome_empresa;
-    private String cnpj;
-    private String endereco;
-    private BsonDateTime data_cadastro;
-    private String cidade;
 
-    /**
-     * @return the _id
-     */
-    public ObjectId getId() {
-        return _id;
+import java.sql.Timestamp;
+
+/**
+ * Classe contendo os dados da empresa
+ * @author RodolfoFonseca
+ */
+public class Empresa implements ModelInterface{
+    private int codigo_empresa;
+    private String nome_empresa;
+    private String cpf_cnpj;
+    private Timestamp data_cadastro;
+    private String ciade;
+    private String logo;
+    private String telefone;
+    private boolean status_empresa;
+    
+    @Override
+    public String getTabela() {
+        return "empresa";
     }
 
     /**
-     * @param _id the _id to set
+     * @return the codigo_empresa
      */
-    public void setId(ObjectId _id) {
-        this._id = _id;
+    public int getCodigo_empresa() {
+        return codigo_empresa;
+    }
+
+    /**
+     * @param codigo_empresa the codigo_empresa to set
+     */
+    public void setCodigo_empresa(int codigo_empresa) {
+        this.codigo_empresa = codigo_empresa;
     }
 
     /**
@@ -43,60 +50,87 @@ public class Empresa {
     }
 
     /**
-     * @return the cnpj
+     * @return the cpf_cnpj
      */
-    public String getCnpj() {
-        return cnpj;
+    public String getCpf_cnpj() {
+        return cpf_cnpj;
     }
 
     /**
-     * @param cnpj the cnpj to set
+     * @param cpf_cnpj the cpf_cnpj to set
      */
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    /**
-     * @return the endereco
-     */
-    public String getEndereco() {
-        return endereco;
-    }
-
-    /**
-     * @param endereco the endereco to set
-     */
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setCpf_cnpj(String cpf_cnpj) {
+        this.cpf_cnpj = cpf_cnpj;
     }
 
     /**
      * @return the data_cadastro
      */
-    public BsonDateTime getData_cadastro() {
+    public Timestamp getData_cadastro() {
         return data_cadastro;
     }
 
     /**
      * @param data_cadastro the data_cadastro to set
      */
-    public void setData_cadastro(BsonDateTime data_cadastro) {
+    public void setData_cadastro(Timestamp data_cadastro) {
         this.data_cadastro = data_cadastro;
     }
 
     /**
-     * @return the cidade
+     * @return the ciade
      */
-    public String getCidade() {
-        return cidade;
+    public String getCiade() {
+        return ciade;
     }
 
     /**
-     * @param cidade the cidade to set
+     * @param ciade the ciade to set
      */
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
+    public void setCiade(String ciade) {
+        this.ciade = ciade;
     }
-    
+
+    /**
+     * @return the logo
+     */
+    public String getLogo() {
+        return logo;
+    }
+
+    /**
+     * @param logo the logo to set
+     */
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    /**
+     * @return the telefone
+     */
+    public String getTelefone() {
+        return telefone;
+    }
+
+    /**
+     * @param telefone the telefone to set
+     */
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    /**
+     * @return the status_empresa
+     */
+    public boolean isStatus_empresa() {
+        return status_empresa;
+    }
+
+    /**
+     * @param status_empresa the status_empresa to set
+     */
+    public void setStatus_empresa(boolean status_empresa) {
+        this.status_empresa = status_empresa;
+    }
     
 }
