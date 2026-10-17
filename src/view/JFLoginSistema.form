@@ -87,6 +87,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tbxEmail">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="rodolfofonseca01@gmail.com"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
@@ -97,6 +100,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="tbxSenha">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="123"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
@@ -108,6 +114,9 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="ENTRAR NO SISTEMA"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -1,3 +1,4 @@
+
 package util;
 
 import java.awt.BorderLayout;
@@ -5,6 +6,9 @@ import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Window;
 
 import javax.swing.BorderFactory;
@@ -14,232 +18,162 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.plaf.basic.BasicProgressBarUI;
 
 public class LoadingDialog {
 
     private static JDialog dialog;
     private static JLabel label;
-    private static JLabel porcentagemLabel;
     private static JProgressBar progressBar;
 
     private LoadingDialog() {
     }
 
     public static void mostrar(Window parent, String mensagem) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            SwingUtilities.invokeLater(
+                () -> mostrar(parent, mensagem)
+            );
+            return;
+        }
 
         if (dialog != null && dialog.isVisible()) {
-
             atualizarMensagem(mensagem);
-
             return;
         }
 
         dialog = new JDialog(
-                parent,
-                "Aguarde",
-                Dialog.ModalityType.MODELESS
+            parent,
+            "Aguarde",
+            Dialog.ModalityType.MODELESS
         );
 
+        dialog.setUndecorated(true);
         dialog.setDefaultCloseOperation(
-                JDialog.DO_NOTHING_ON_CLOSE
+            JDialog.DO_NOTHING_ON_CLOSE
         );
-
         dialog.setResizable(false);
 
+        // Cartão branco com bordas arredondadas
+        JPanel painel = new JPanel(new BorderLayout(0, 12)) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+
+                g2.setRenderingHint(
+                    RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON
+                );
+
+                g2.setColor(Color.WHITE);
+                g2.fillRoundRect(
+                    0, 0, getWidth(), getHeight(), 24, 24
+                );
+
+                g2.dispose();
+                super.paintComponent(g);
+            }
+        };
+
+        painel.setOpaque(false);
+        painel.setBackground(Color.WHITE);
+        painel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(
+                new Color(235, 237, 240), 1
+            ),
+            BorderFactory.createEmptyBorder(
+                25, 30, 25, 30
+            )
+        ));
+
+        // Ícone de carregamento
+        JLabel icone = new JLabel(
+            "\u27F3",
+            SwingConstants.CENTER
+        );
+
+        icone.setFont(new Font("Arial", Font.PLAIN, 48));
+        icone.setForeground(new Color(48, 133, 214));
+
+        // Título
+        JLabel titulo = new JLabel(
+            "Aguarde...",
+            SwingConstants.CENTER
+        );
+
+        titulo.setFont(new Font("Arial", Font.BOLD, 22));
+        titulo.setForeground(new Color(84, 84, 84));
+
+        // Mensagem
         label = new JLabel(
-                mensagem,
-                SwingConstants.CENTER
+            mensagem,
+            SwingConstants.CENTER
         );
 
-        label.setFont(
-                new Font(
-                        "Arial",
-                        Font.BOLD,
-                        14
-                )
-        );
+        label.setFont(new Font("Arial", Font.PLAIN, 14));
+        label.setForeground(new Color(110, 110, 110));
 
-        label.setForeground(
-                new Color(60, 60, 60)
-        );
-
-        label.setBorder(
-                BorderFactory.createEmptyBorder(
-                        15, 20, 10, 20
-                )
-        );
-
+        // Barra animada, sem porcentagem fictícia
         progressBar = new JProgressBar();
-
-        progressBar.setMinimum(0);
-        progressBar.setMaximum(100);
-        progressBar.setValue(0);
-
+        progressBar.setIndeterminate(true);
+        progressBar.setBorderPainted(false);
+        progressBar.setOpaque(false);
         progressBar.setForeground(
-                new Color(40, 167, 69)
+            new Color(48, 133, 214)
         );
-
-        progressBar.setBackground(
-                new Color(230, 230, 230)
-        );
-
-        progressBar.setOpaque(true);
-
-        progressBar.setUI(
-                new BasicProgressBarUI()
-        );
-
         progressBar.setPreferredSize(
-                new Dimension(300, 22)
+            new Dimension(280, 6)
         );
 
-        progressBar.setStringPainted(false);
+        JPanel topo = new JPanel(new BorderLayout(0, 5));
+        topo.setOpaque(false);
+        topo.add(icone, BorderLayout.NORTH);
+        topo.add(titulo, BorderLayout.CENTER);
 
-        porcentagemLabel = new JLabel(
-                "0%",
-                SwingConstants.CENTER
-        );
+        painel.add(topo, BorderLayout.NORTH);
+        painel.add(label, BorderLayout.CENTER);
+        painel.add(progressBar, BorderLayout.SOUTH);
 
-        porcentagemLabel.setFont(
-                new Font(
-                        "Arial",
-                        Font.BOLD,
-                        13
-                )
-        );
-
-        porcentagemLabel.setForeground(
-                new Color(40, 167, 69)
-        );
-
-        porcentagemLabel.setBorder(
-                BorderFactory.createEmptyBorder(
-                        5, 0, 10, 0
-                )
-        );
-
-        JPanel painelProgresso = new JPanel(
-                new BorderLayout()
-        );
-
-        painelProgresso.setBackground(
-                Color.WHITE
-        );
-
-        painelProgresso.setBorder(
-                BorderFactory.createEmptyBorder(
-                        0, 20, 0, 20
-                )
-        );
-
-        painelProgresso.add(
-                progressBar,
-                BorderLayout.CENTER
-        );
-
-        JPanel painelPrincipal = new JPanel(
-                new BorderLayout()
-        );
-
-        painelPrincipal.setBackground(
-                Color.WHITE
-        );
-
-        painelPrincipal.add(
-                label,
-                BorderLayout.NORTH
-        );
-
-        painelPrincipal.add(
-                painelProgresso,
-                BorderLayout.CENTER
-        );
-
-        painelPrincipal.add(
-                porcentagemLabel,
-                BorderLayout.SOUTH
-        );
-
-        dialog.setContentPane(
-                painelPrincipal
-        );
-
+        dialog.setContentPane(painel);
         dialog.pack();
-
-        dialog.setMinimumSize(
-                new Dimension(360, 130)
-        );
-
+        dialog.setSize(360, 205);
         dialog.setLocationRelativeTo(parent);
 
         dialog.setVisible(true);
-    }
-
-    public static void atualizarProgresso(int valor) {
-
-        final int progresso;
-
-        if (valor < 0) {
-            progresso = 0;
-        } else if (valor > 100) {
-            progresso = 100;
-        } else {
-            progresso = valor;
-        }
-
-        SwingUtilities.invokeLater(() -> {
-
-            if (progressBar != null) {
-
-                progressBar.setValue(progresso);
-
-                if (porcentagemLabel != null) {
-
-                    porcentagemLabel.setText(
-                            progresso + "%"
-                    );
-                }
-
-                progressBar.revalidate();
-                progressBar.repaint();
-
-                if (porcentagemLabel != null) {
-                    porcentagemLabel.repaint();
-                }
-            }
-        });
+        dialog.toFront();
     }
 
     public static void atualizarMensagem(String mensagem) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            SwingUtilities.invokeLater(
+                () -> atualizarMensagem(mensagem)
+            );
+            return;
+        }
 
-        SwingUtilities.invokeLater(() -> {
+        if (label != null) {
+            label.setText(mensagem);
+        }
+    }
 
-            if (label != null) {
-
-                label.setText(
-                        mensagem
-                );
-
-                label.revalidate();
-                label.repaint();
-            }
-        });
+    public static void atualizarProgresso(int valor) {
+        // Não há porcentagem real disponível durante a requisição.
+        // A barra permanece animada até o retorno da API.
     }
 
     public static void fechar() {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            SwingUtilities.invokeLater(
+                LoadingDialog::fechar
+            );
+            return;
+        }
 
-        SwingUtilities.invokeLater(() -> {
+        if (dialog != null) {
+            dialog.dispose();
+        }
 
-            if (dialog != null) {
-
-                dialog.dispose();
-
-                dialog = null;
-                label = null;
-                porcentagemLabel = null;
-                progressBar = null;
-            }
-        });
+        dialog = null;
+        label = null;
+        progressBar = null;
     }
 }

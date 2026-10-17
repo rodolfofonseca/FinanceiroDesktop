@@ -1,5 +1,5 @@
 package view;
-
+import controller.UsuarioCtr;
 /**
  * Formulário responsável por capturar os dados de acesso do usuário ao sistema.
  * 
@@ -7,7 +7,7 @@ package view;
  * @author RodolfoFonseca
  */
 public class JFLoginSistema extends javax.swing.JFrame {
-    
+    private UsuarioCtr controller;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFLoginSistema.class.getName());
 
     /**
@@ -16,6 +16,7 @@ public class JFLoginSistema extends javax.swing.JFrame {
     public JFLoginSistema() {
         initComponents();
         setLocationRelativeTo(null);
+        this.controller = new UsuarioCtr();
     }
 
     /**
@@ -43,10 +44,15 @@ public class JFLoginSistema extends javax.swing.JFrame {
 
         jLabel2.setText("Email:");
 
+        tbxEmail.setText("rodolfofonseca01@gmail.com");
+
         jLabel3.setText("Senha:");
+
+        tbxSenha.setText("123");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/button_icons/login.png"))); // NOI18N
         jButton1.setToolTipText("ENTRAR NO SISTEMA");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,6 +95,10 @@ public class JFLoginSistema extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.controller.LoginSistema(this);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
