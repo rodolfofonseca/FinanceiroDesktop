@@ -88,7 +88,7 @@ public class UsuarioCtr implements InterfaceController {
                     if (retorno) {
                         Sessao.carregar(respostaJson);
 
-                        String versaoSistema = Sessao.sistema.getString("versao_sistema_java");
+                        /*String versaoSistema = Sessao.sistema.getString("versao_sistema_java");
 
                         if ("alfa 0.0".equals(versaoSistema)) {
                             Alertas.sucesso(mensagem);
@@ -97,7 +97,7 @@ public class UsuarioCtr implements InterfaceController {
                             JFLoginSistema.dispose();
                         } else {
                             Alertas.aviso("Sistema desatualizadao. Atualize o sistema");
-                        }
+                        }*/
                     } else {
                         Alertas.erro(mensagem);
                     }

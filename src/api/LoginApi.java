@@ -15,7 +15,7 @@ import java.time.Duration;
  */
 public class LoginApi {
     private static final String URL =
-        "https://financeirodev.api.hammertail.app/api/usuarios";
+        "https://gerenciador-de-documentos.api.hammertail.app/api/usuarios";
 
     private final HttpClient client;
 

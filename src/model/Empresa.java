@@ -11,7 +11,7 @@ public class Empresa implements ModelInterface{
     private String nome_empresa;
     private String cpf_cnpj;
     private Timestamp data_cadastro;
-    private String ciade;
+    private String cidade;
     private String logo;
     private String telefone;
     private boolean status_empresa;
@@ -78,17 +78,17 @@ public class Empresa implements ModelInterface{
     }
 
     /**
-     * @return the ciade
+     * @return the cidade
      */
-    public String getCiade() {
-        return ciade;
+    public String getCidade() {
+        return cidade;
     }
 
     /**
-     * @param ciade the ciade to set
+     * @param cidade the ciade to set
      */
-    public void setCiade(String ciade) {
-        this.ciade = ciade;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
     /**

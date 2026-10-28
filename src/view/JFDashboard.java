@@ -1,29 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
-
 import javax.swing.SwingUtilities;
 import util.Sessao;
-import view.inferna_frame.JIFContasBancarias;
+import view.inferna_frame.pesquisa.JIFContasBancarias;
+import controller.view.DashboardCtr;
 
 /**
- *
- * @author nc
+ * Formulário que contém todas as ações do sistema
+ * @author RodolfoFonseca
  */
 public class JFDashboard extends javax.swing.JFrame {
-
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFDashboard.class.getName());
-
+    private DashboardCtr controller;
     /**
      * Creates new form JFDashboard
      */
     public JFDashboard() {
         initComponents();
         setLocationRelativeTo(null);
-        adicionarPlanoDeFundo();
-        colocarDadosUsuarioLogado();
+        
+        this.controller = new DashboardCtr();
+        this.controller.iniciarFormulario(this);
+        
     }
 
     /**
@@ -35,7 +32,7 @@ public class JFDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        desktop = new javax.swing.JDesktopPane();
+        desktop = new util.DesktopComFundo();
         jToolBar1 = new javax.swing.JToolBar();
         lUsuarioLogado = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -53,7 +50,7 @@ public class JFDashboard extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 418, Short.MAX_VALUE)
+            .addGap(0, 697, Short.MAX_VALUE)
         );
 
         jToolBar1.setRollover(true);
@@ -61,6 +58,7 @@ public class JFDashboard extends javax.swing.JFrame {
         lUsuarioLogado.setText("jLabel1");
         jToolBar1.add(lUsuarioLogado);
 
+        JMContasBancarias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/button_icons/pequeno_16/contas_bancarias.png"))); // NOI18N
         JMContasBancarias.setText("Contas Bancárias");
         JMContasBancarias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -79,7 +77,7 @@ public class JFDashboard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(desktop)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 836, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1475, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,29 +91,7 @@ public class JFDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JMContasBancariasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JMContasBancariasMouseClicked
-        SwingUtilities.invokeLater(() -> {
-            JIFContasBancarias contasBancarias = new JIFContasBancarias();
-
-            contasBancarias.setSize(600, 400);
-
-            int x = (desktop.getWidth() - contasBancarias.getWidth()) / 2;
-            int y = (desktop.getHeight() - contasBancarias.getHeight()) / 2;
-
-            contasBancarias.setLocation(x, y);
-
-            desktop.add(contasBancarias);
-            contasBancarias.setVisible(true);
-
-            desktop.revalidate();
-            desktop.repaint();
-
-            try {
-                contasBancarias.setSelected(true);
-            } catch (java.beans.PropertyVetoException e) {
-                e.printStackTrace();
-            }
-        });
-
+       this.controller.abrirFomularioContas();
     }//GEN-LAST:event_JMContasBancariasMouseClicked
 
     /**
@@ -151,68 +127,5 @@ public class JFDashboard extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     public static javax.swing.JLabel lUsuarioLogado;
     // End of variables declaration//GEN-END:variables
-/**
-     * Função responsável por adicionar uma imagem de plano de fundo dentro do
-     * sistema
-     */
-    private void adicionarPlanoDeFundo() {
-        java.net.URL url = getClass().getResource("/imagens/imagens_sistema/logo.png");
-
-        if (url == null) {
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Imagem de fundo não encontrada!"
-            );
-            return;
-        }
-
-        javax.swing.ImageIcon imagem
-                = new javax.swing.ImageIcon(url);
-
-        javax.swing.JLabel fundo = new javax.swing.JLabel() {
-            @Override
-            protected void paintComponent(java.awt.Graphics g) {
-                super.paintComponent(g);
-
-                g.drawImage(
-                        imagem.getImage(),
-                        0, 0,
-                        getWidth(),
-                        getHeight(),
-                        this
-                );
-            }
-        };
-
-        fundo.setBounds(
-                0, 0,
-                desktop.getWidth(),
-                desktop.getHeight()
-        );
-
-        desktop.add(fundo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        desktop.addComponentListener(
-                new java.awt.event.ComponentAdapter() {
-            @Override
-            public void componentResized(
-                    java.awt.event.ComponentEvent e) {
-                fundo.setSize(
-                        desktop.getSize()
-                );
-                fundo.repaint();
-            }
-        }
-        );
-
-        desktop.repaint();
-    }
-
-    /**
-     * Função que coloca as informações do usuário que está logado no sistema
-     * nos componentes.
-     */
-    private void colocarDadosUsuarioLogado() {
-        lUsuarioLogado.setText("Usuário Logado: " + Sessao.usuario.getString("nome_usuario"));
-    }
+    
 }

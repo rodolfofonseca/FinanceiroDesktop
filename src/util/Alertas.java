@@ -6,6 +6,24 @@ import java.awt.*;
  * @author Rodolfo Fonseca
  */
 public class Alertas {
+    /**
+     * Mensagem: Operação realizada com sucesso!
+     * 
+     * Apresentada sempre que de sucesso de forma genérica.
+     */
+    public static void operacaoSucesso(){
+        mostrar("Sucesso!", "Operação realizada com sucesso!", new Color(40, 167, 69));
+    }
+    
+    /**
+     * Mensagem: Falha durante o processo!
+     * 
+     * Aprensentada sempre que uma operção apresentar erro
+     */
+    public static void OperacaoErro(){
+    mostrar("Ops!", "Falha durante o processo!", new Color(220, 53, 69));
+    }
+    
     public static void sucesso(String mensagem) {
         mostrar("Sucesso!", mensagem, new Color(40, 167, 69));
     }
@@ -18,14 +36,8 @@ public class Alertas {
         mostrar("Atenção!", mensagem, new Color(255, 193, 7));
     }
 
-    private static void mostrar(
-            String titulo,
-            String mensagem,
-            Color cor) {
-
-        JDialog dialog = new JDialog(
-            (Frame) null, titulo, true
-        );
+    private static void mostrar(String titulo, String mensagem, Color cor) {
+        JDialog dialog = new JDialog((Frame) null, titulo, true);
 
         dialog.setUndecorated(true);
         dialog.setSize(380, 250);
@@ -33,18 +45,10 @@ public class Alertas {
 
         JPanel painel = new JPanel();
         painel.setBackground(Color.WHITE);
-        painel.setBorder(BorderFactory.createLineBorder(
-            cor, 2
-        ));
-        painel.setLayout(new BoxLayout(
-            painel, BoxLayout.Y_AXIS
-        ));
+        painel.setBorder(BorderFactory.createLineBorder(cor, 2));
+        painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
 
-        JLabel icone = new JLabel(
-            titulo.equals("Sucesso!") ? "✓" :
-            titulo.equals("Ops!") ? "✕" : "!",
-            SwingConstants.CENTER
-        );
+        JLabel icone = new JLabel(titulo.equals("Sucesso!") ? "✓" : titulo.equals("Ops!") ? "✕" : "!", SwingConstants.CENTER);
         icone.setFont(new Font("Arial", Font.BOLD, 42));
         icone.setForeground(cor);
         icone.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -53,10 +57,7 @@ public class Alertas {
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 23));
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel lblMensagem = new JLabel(
-            "<html><div style='text-align:center;width:290px;'>"
-            + mensagem + "</div></html>"
-        );
+        JLabel lblMensagem = new JLabel("<html><div style='text-align:center;width:290px;'>" + mensagem + "</div></html>");
         lblMensagem.setFont(new Font("Arial", Font.PLAIN, 14));
         lblMensagem.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -83,17 +84,7 @@ public class Alertas {
         painel.add(Box.createVerticalStrut(15));
 
         dialog.setContentPane(painel);
-        dialog.setDefaultCloseOperation(
-            JDialog.DISPOSE_ON_CLOSE
-        );
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
     }
-
-    //public static void main(String[] args) {
-      //  SwingUtilities.invokeLater(() -> {
-        //    sucesso("Login realizado com sucesso!");
-            // erro("E-mail ou senha inválidos!");
-            // aviso("Preencha todos os campos!");
-       // });
-    //}
 }
