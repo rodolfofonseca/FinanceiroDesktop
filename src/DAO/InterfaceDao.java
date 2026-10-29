@@ -13,5 +13,5 @@ public interface InterfaceDao {
 
     Object pesquisar(int id);
 
-    List<Object> listar();
+    List<Object> listar(Object objeto);
 }

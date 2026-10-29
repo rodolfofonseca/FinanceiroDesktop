@@ -6,6 +6,7 @@ import java.nio.charset.CodingErrorAction;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
 import model.Contas;
 import util.Alertas;
 import util.ColorirTabela;
@@ -242,6 +243,39 @@ public class ContasCtr {
             formulario.cbxStatusConta.setSelectedItem("ATIVO");
         }else{
             formulario.cbxStatusConta.setSelectedItem("INATIVO");
+        }
+    }
+    
+    /**
+     * Função responsável por pesquisar todas as contas cadastradas no banco de dados
+     * para a empresa que está logada no sistema.
+     * @param todasAsContas
+     * @return 
+     */
+    public DefaultComboBoxModel PesquisaContasCBX(boolean todasAsContas){
+        DefaultComboBoxModel<Object> modelo = new DefaultComboBoxModel<>();
+        
+        try{
+         Contas contasModelo = new Contas();
+         
+         Empresa empresa = new Empresa();
+         empresa.setCodigo_empresa(Sessao.empresa.getInt("codigo_empresa"));
+         contasModelo.setStatus(true);
+         contasModelo.setEmpresa(empresa);
+         
+         List<Contas> contas = this.dao.listar(contasModelo);
+         
+         if(todasAsContas == true){
+             modelo.addElement("TODAS AS CONTAS");
+         }
+         
+         for(Contas conta:contas){
+             modelo.addElement(conta);
+         }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            return modelo;
         }
     }
 }

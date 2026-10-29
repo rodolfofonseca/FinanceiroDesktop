@@ -111,4 +111,9 @@ public class Contas {
         this.nome_conta = nome_conta;
     }
     
+    @Override
+    public String toString(){
+    return nome_conta;
+    }
+    
 }

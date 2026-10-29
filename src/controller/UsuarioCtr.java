@@ -36,7 +36,7 @@ public class UsuarioCtr implements InterfaceController {
     }
 
     @Override
-    public void pesquisarDados() {
+    public void pesquisarDados(Object formulario) {
 
     }
 
@@ -52,6 +52,7 @@ public class UsuarioCtr implements InterfaceController {
 
     /**
      * Função responsável por fazer o login no sistema, por meio da api
+     * @param JFLoginSistema
      */
     public void LoginSistema(JFLoginSistema JFLoginSistema) {
         String email = JFLoginSistema.tbxEmail.getText().trim();
@@ -88,16 +89,10 @@ public class UsuarioCtr implements InterfaceController {
                     if (retorno) {
                         Sessao.carregar(respostaJson);
 
-                        /*String versaoSistema = Sessao.sistema.getString("versao_sistema_java");
-
-                        if ("alfa 0.0".equals(versaoSistema)) {
-                            Alertas.sucesso(mensagem);
-                            JFDashboard dashboard = new JFDashboard();
-                            dashboard.setVisible(true);
-                            JFLoginSistema.dispose();
-                        } else {
-                            Alertas.aviso("Sistema desatualizadao. Atualize o sistema");
-                        }*/
+                        Alertas.sucesso(mensagem);
+                        JFDashboard dashboard = new JFDashboard();
+                        dashboard.setVisible(true);
+                        JFLoginSistema.dispose();
                     } else {
                         Alertas.erro(mensagem);
                     }

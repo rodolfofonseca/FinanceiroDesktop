@@ -32,12 +32,12 @@ public class JFDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        desktop = new util.DesktopComFundo();
+        desktop = new util.DesktopFundo();
         jToolBar1 = new javax.swing.JToolBar();
         lUsuarioLogado = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jmMovimentacao = new javax.swing.JMenu();
         JMContasBancarias = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GF - Gerenciador Financeiro");
@@ -58,6 +58,16 @@ public class JFDashboard extends javax.swing.JFrame {
         lUsuarioLogado.setText("jLabel1");
         jToolBar1.add(lUsuarioLogado);
 
+        jmMovimentacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/button_icons/pequeno_16/moneyBack.png"))); // NOI18N
+        jmMovimentacao.setText("Movimentação");
+        jmMovimentacao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmMovimentacaoMouseClicked(evt);
+            }
+        });
+        jmMovimentacao.addActionListener(this::jmMovimentacaoActionPerformed);
+        jMenuBar1.add(jmMovimentacao);
+
         JMContasBancarias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/button_icons/pequeno_16/contas_bancarias.png"))); // NOI18N
         JMContasBancarias.setText("Contas Bancárias");
         JMContasBancarias.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -66,9 +76,6 @@ public class JFDashboard extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(JMContasBancarias);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -93,6 +100,14 @@ public class JFDashboard extends javax.swing.JFrame {
     private void JMContasBancariasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JMContasBancariasMouseClicked
        this.controller.abrirFomularioContas();
     }//GEN-LAST:event_JMContasBancariasMouseClicked
+
+    private void jmMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmMovimentacaoActionPerformed
+       
+    }//GEN-LAST:event_jmMovimentacaoActionPerformed
+
+    private void jmMovimentacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmMovimentacaoMouseClicked
+        this.controller.abrirFormularioPesquisaMovimentacao();
+    }//GEN-LAST:event_jmMovimentacaoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -122,9 +137,9 @@ public class JFDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu JMContasBancarias;
     public static javax.swing.JDesktopPane desktop;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JToolBar jToolBar1;
+    public javax.swing.JMenu jmMovimentacao;
     public static javax.swing.JLabel lUsuarioLogado;
     // End of variables declaration//GEN-END:variables
     

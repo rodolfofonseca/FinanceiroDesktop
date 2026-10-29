@@ -6,7 +6,7 @@ import javax.swing.JDesktopPane;
  * Classe que coloca o fundo no desktop
  * @author RodolfoFonseca
  */
-public class DesktopComFundo extends JDesktopPane{
+public class DesktopFundo extends JDesktopPane{
     private Image imagemFundo;
 
     public void setImagemFundo(Image imagemFundo) {

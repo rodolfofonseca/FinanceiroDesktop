@@ -1,6 +1,7 @@
 package controller.view;
 
 import controller.ContasCtr;
+import java.beans.PropertyVetoException;
 import javax.swing.SwingUtilities;
 import model.Contas;
 import util.Sessao;
@@ -9,6 +10,7 @@ import static view.JFDashboard.desktop;
 import static view.JFDashboard.lUsuarioLogado;
 import view.inferna_frame.pesquisa.JIFContasBancarias;
 import view.inferna_frame.cadastro_edicao.JIFContasBancariasCad;
+import view.inferna_frame.pesquisa.MovimentacaoPesq;
 
 /**
  * Classe responsável por controlar todas as ações do formulário Dashboard
@@ -20,6 +22,7 @@ public class DashboardCtr {
     /**
      * Função responsável por adicionar uma imagem de plano de fundo dentro do
      * sistema
+     * @param formulario
      */
     public void adicionarPlanoDeFundo(JFDashboard formulario) {
         java.net.URL url = getClass().getResource("/imagens/imagens_sistema/logo.png");
@@ -31,8 +34,8 @@ public class DashboardCtr {
 
         javax.swing.ImageIcon imagem = new javax.swing.ImageIcon(url);
 
-        if (desktop instanceof util.DesktopComFundo) {
-            ((util.DesktopComFundo) desktop).setImagemFundo(imagem.getImage());
+        if (desktop instanceof util.DesktopFundo) {
+            ((util.DesktopFundo) desktop).setImagemFundo(imagem.getImage());
         } else {
             javax.swing.JOptionPane.showMessageDialog(formulario, "O desktop precisa ser do tipo DesktopComFundo.");
         }
@@ -87,6 +90,7 @@ public class DashboardCtr {
     /**
      * Função responsável por abrir o forumlário que cadastro de contas
      * bancárias
+     * @param conta
      */
     public void abrirFormularioCadastroConta(Contas conta) {
         SwingUtilities.invokeLater(() -> {
@@ -111,6 +115,31 @@ public class DashboardCtr {
             } catch (java.beans.PropertyVetoException ex) {
                 ex.printStackTrace();
             }
+        });
+    }
+    
+    /**
+     * Função responável por abrir o formulário de pesquisa de movimentações bancárias
+     */
+    public void abrirFormularioPesquisaMovimentacao(){
+        SwingUtilities.invokeLater(() -> {
+        MovimentacaoPesq movimentacao = new MovimentacaoPesq();
+        movimentacao.setSize(800, 400);
+        
+        int x = (desktop.getWidth() - movimentacao.getWidth())/2;
+        int y = (desktop.getHeight() - movimentacao.getHeight())/2;
+        
+        movimentacao.setLocation(x, y);
+        desktop.add(movimentacao);
+        movimentacao.setVisible(true);
+        desktop.revalidate();
+        desktop.repaint();
+        
+        try{
+            movimentacao.setSelected(true);
+        }catch(PropertyVetoException ex){
+            ex.printStackTrace();
+        }
         });
     }
 }

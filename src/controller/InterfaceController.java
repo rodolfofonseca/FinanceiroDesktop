@@ -24,7 +24,7 @@ public interface InterfaceController {
      * Funçãoa responsável por pesquisar as informações no banco de dados, de acordo
      * com os filtros passados
      */
-    public void pesquisarDados();
+    public void pesquisarDados(Object formulario);
     
     /**
      * Função responsável por selecionar os dados da tabela e colocar nos campos correspondentes
