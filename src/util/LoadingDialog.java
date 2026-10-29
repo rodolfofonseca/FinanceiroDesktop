@@ -24,6 +24,7 @@ public class LoadingDialog {
     private static JDialog dialog;
     private static JLabel label;
     private static JProgressBar progressBar;
+    private static IconeCarregamento iconeCarregamento;
 
     private LoadingDialog() {
     }
@@ -86,13 +87,16 @@ public class LoadingDialog {
         ));
 
         // Ícone de carregamento
-        JLabel icone = new JLabel(
+       /* JLabel icone = new JLabel(
             "\u27F3",
             SwingConstants.CENTER
         );
 
         icone.setFont(new Font("Arial", Font.PLAIN, 48));
-        icone.setForeground(new Color(48, 133, 214));
+        icone.setForeground(new Color(48, 133, 214));*/
+       IconeCarregamento icone = new IconeCarregamento();
+iconeCarregamento = icone;
+icone.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
 
         // Título
         JLabel titulo = new JLabel(
@@ -160,7 +164,7 @@ public class LoadingDialog {
         // A barra permanece animada até o retorno da API.
     }
 
-    public static void fechar() {
+   /* public static void fechar() {
         if (!SwingUtilities.isEventDispatchThread()) {
             SwingUtilities.invokeLater(
                 LoadingDialog::fechar
@@ -175,5 +179,28 @@ public class LoadingDialog {
         dialog = null;
         label = null;
         progressBar = null;
+    }*/
+    
+public static void fechar() {
+    if (!SwingUtilities.isEventDispatchThread()) {
+        SwingUtilities.invokeLater(
+            LoadingDialog::fechar
+        );
+        return;
     }
+
+    if (iconeCarregamento != null) {
+        iconeCarregamento.parar();
+        iconeCarregamento = null;
+    }
+
+    if (dialog != null) {
+        dialog.dispose();
+    }
+
+    dialog = null;
+    label = null;
+    progressBar = null;
+}
+
 }

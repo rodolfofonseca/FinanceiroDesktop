@@ -1,29 +1,33 @@
 package util;
+
 import javax.swing.*;
 import java.awt.*;
+
 /**
  * Classe responsável por modernizar os alertas do sistema.
+ *
  * @author Rodolfo Fonseca
  */
 public class Alertas {
+
     /**
      * Mensagem: Operação realizada com sucesso!
-     * 
+     *
      * Apresentada sempre que de sucesso de forma genérica.
      */
-    public static void operacaoSucesso(){
+    public static void operacaoSucesso() {
         mostrar("Sucesso!", "Operação realizada com sucesso!", new Color(40, 167, 69));
     }
-    
+
     /**
      * Mensagem: Falha durante o processo!
-     * 
+     *
      * Aprensentada sempre que uma operção apresentar erro
      */
-    public static void OperacaoErro(){
-    mostrar("Ops!", "Falha durante o processo!", new Color(220, 53, 69));
+    public static void OperacaoErro() {
+        mostrar("Ops!", "Falha durante o processo!", new Color(220, 53, 69));
     }
-    
+
     public static void sucesso(String mensagem) {
         mostrar("Sucesso!", mensagem, new Color(40, 167, 69));
     }
@@ -48,9 +52,21 @@ public class Alertas {
         painel.setBorder(BorderFactory.createLineBorder(cor, 2));
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
 
-        JLabel icone = new JLabel(titulo.equals("Sucesso!") ? "✓" : titulo.equals("Ops!") ? "✕" : "!", SwingConstants.CENTER);
+        /*JLabel icone = new JLabel(titulo.equals("Sucesso!") ? "✓" : titulo.equals("Ops!") ? "✕" : "!", SwingConstants.CENTER);
         icone.setFont(new Font("Arial", Font.BOLD, 42));
         icone.setForeground(cor);
+        icone.setAlignmentX(Component.CENTER_ALIGNMENT);*/
+        IconeAlerta.Tipo tipo;
+
+        if (titulo.equals("Sucesso!")) {
+            tipo = IconeAlerta.Tipo.SUCESSO;
+        } else if (titulo.equals("Ops!")) {
+            tipo = IconeAlerta.Tipo.ERRO;
+        } else {
+            tipo = IconeAlerta.Tipo.AVISO;
+        }
+
+        IconeAlerta icone = new IconeAlerta(tipo, cor);
         icone.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel lblTitulo = new JLabel(titulo);
